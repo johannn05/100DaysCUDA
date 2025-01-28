@@ -9,5 +9,6 @@ Mentor: https://github.com/hkproj/
 | Day   | File Description                                                                                                                                                                                                                      |
 |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1 | **vectorAdd.cu**:  GPU vector addition: memory allocation, host-to-device data transfer, kernel launch.<br>**matrixAdd.cu**: GPU matrix addition: 2D grid/block indexing.
+| 2 | **matrixMul.cu**:  matrix multiplication: element-wise computation using 2D thread blocks
 
 To test my kernels run them at https://leetgpu.com
