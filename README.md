@@ -14,6 +14,7 @@ Mentor: https://github.com/hkproj/
 | 4 | **tiledMatmul.cu**: tiled matrix multiplication: shared memory, tiling, thread synchronization to optimize memory access and speeds
 | 5 | **prefixSum.cu**: Prefix sum: shared memory, parallel prefix scan, thread synchronization
 | 6 | **Softmax.cu**: Naive softmax: each thread computes softmax for one element using global memory only.<br>**layerNorm.cu**: each thread computes layer norm for one element using global memory, recomputing mean/variance redundantly.
+| 7 | **tiledMatrixAdd.cu**: tiled matrix addition: uses shared memory, thread sync, tiling to optimize global memory access
 
 
 To test my kernels, run them at https://leetgpu.com
