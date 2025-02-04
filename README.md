@@ -16,5 +16,5 @@ Mentor: https://github.com/hkproj/
 | 6 | **Softmax.cu**: Naive softmax: each thread computes softmax for one element using global memory only.<br>**layerNorm.cu**: each thread computes layer norm for one element using global memory, recomputing mean/variance redundantly.
 | 7 | **tiledMatrixAdd.cu**: tiled matrix addition: uses shared memory, thread sync, tiling to optimize global memory access
 | 8 | **lightningAttention.cu**: lightning attention: uses shared memory, parallel reduction, masking for efficient attention computation
-
+| 9 | **optimizedSoftmax.cu**:  optimized Softmax: uses shared memory, parallel reduction, and thread sync to efficiently compute exponentials and their sum
 To test my kernels, run them at https://leetgpu.com
