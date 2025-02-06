@@ -18,6 +18,7 @@ Mentor: https://github.com/hkproj/
 | 8 | **lightningAttention.cu**: lightning attention: uses shared memory, parallel reduction, masking for efficient attention computation
 | 9 | **optimizedSoftmax.cu**:  optimized Softmax: uses shared memory, parallel reduction, and thread sync to efficiently compute exponentials and their sum
 | 10 | **optimizedMatmul.cu**:  optimized tiled matrix multiplication: uses shared memory tiling, corner turning for coalescing to optimize global memory access, and thread synchronization
+| 11 | **selfAttention.cu**:   self-attention: uses shared memory, tiling, parallel softmax computation, and memory coalescing to efficiently compute scaled dot-product attention,
 
 
 To test my kernels, run them at https://leetgpu.com
