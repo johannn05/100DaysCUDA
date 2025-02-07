@@ -2,13 +2,13 @@
 #include <cuda_runtime.h>
 #include <math_constants.h>
 
-// Define constants for Flash Attention
-const int M = 32;  // Sequence length
-const int d_embed = 32;  // Embedding dimension
-const int Bc = (M / (4 * d_embed)) > 0 ? (M / (4 * d_embed)) : 1;  // Ensure nonzero Bc
-const int Br = (Bc < d_embed) ? Bc : d_embed;  // Ensure valid Br
-const int Tr = (M + Br - 1) / Br;  // Compute Tr at runtime
-const int Tc = (M + Bc - 1) / Bc;  // Compute Tc at runtime
+// constants for Flash Attention
+const int M = 32;  // seq length
+const int d_embed = 32;  // Embedding dim
+const int Bc = (M / (4 * d_embed)) > 0 ? (M / (4 * d_embed)) : 1;  // nonzero Bc
+const int Br = (Bc < d_embed) ? Bc : d_embed;  
+const int Tr = (M + Br - 1) / Br;  // compute Tr at runtime
+const int Tc = (M + Bc - 1) / Bc;  // compute Tc at runtime
 
 // optimized flash attention kernel
 __global__ void flashAttentionKernel(
@@ -19,7 +19,7 @@ __global__ void flashAttentionKernel(
     float *__restrict__ m,
     float *__restrict__ l)
 {
-    // Declare fixed-size shared memory arrays
+    // 
     __shared__ float QBlock[Br][d_embed];  
     __shared__ float KBlock[Bc][d_embed];  
     __shared__ float VBlock[Bc][d_embed];  
@@ -27,16 +27,15 @@ __global__ void flashAttentionKernel(
     __shared__ float lBlock[Br];       
     __shared__ float mBlock[Br];       
 
-    const int i = blockIdx.x * Br + threadIdx.x;  // Row index in Q
-    const int j = blockIdx.y * Bc + threadIdx.y;  // Column index in K/V
+    const int i = blockIdx.x * Br + threadIdx.x;  // row index in Q
+    const int j = blockIdx.y * Bc + threadIdx.y;  // column index in K/V
 
     if (i >= M || j >= d_embed) return;
 
-    // Initialize row max and row sum
     float rowMax = -CUDART_INF_F;
     float sumExp = 0.0f;
 
-    // Load Q, K, V blocks into shared memory
+    // load Q, K, V blocks into shared memory
     for (int p = 0; p < Br; ++p) {
         QBlock[p][threadIdx.y] = Q[(blockIdx.x * Br + p) * d_embed + threadIdx.y];
     }
@@ -47,7 +46,7 @@ __global__ void flashAttentionKernel(
 
     __syncthreads();
 
-    // Compute scaled dot-product attention
+    // compute scaled dot-product attention
     float S[Br][Bc];
     float P[Br][Bc];
 
@@ -62,19 +61,19 @@ __global__ void flashAttentionKernel(
         rowMax = fmaxf(rowMax, score);
     }
 
-    // Compute stable softmax scores
+    // compute stable softmax scores
     for (int p = 0; p < Bc; ++p) {
         P[threadIdx.x][p] = expf(S[threadIdx.x][p] - rowMax);
         sumExp += P[threadIdx.x][p];
     }
 
-    // Store new row max and sum for normalization
+    // store new row max and sum for normalization
     mBlock[threadIdx.x] = rowMax;
     lBlock[threadIdx.x] = sumExp;
 
     __syncthreads();
 
-    // Compute final attention output: O = P * V
+    // compute final attention output: O = P * V
     for (int k = 0; k < d_embed; ++k) {
         float sum = 0.0f;
         for (int p = 0; p < Bc; ++p) {
@@ -85,7 +84,7 @@ __global__ void flashAttentionKernel(
 
     __syncthreads();
 
-    // Write back to global memory
+    // write back to global memory
     for (int k = 0; k < d_embed; ++k) {
         O[i * d_embed + k] = OBlock[threadIdx.x][k];
     }
