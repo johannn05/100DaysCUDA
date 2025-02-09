@@ -20,7 +20,8 @@ Mentor: https://github.com/hkproj/
 | 10 | **optimizedMatmul.cu**:  optimized tiled matrix multiplication: uses shared memory tiling, corner turning for coalescing to optimize global memory access, and thread synchronization
 | 11 | **selfAttention.cu**:   self-attention: uses shared memory, tiling, parallel softmax computation, and memory coalescing to efficiently compute scaled dot-product attention
 | 12 | **flashAttention.cu**:  flash attention: uses shared memory, tiling, block-wise computation, and stable softmax with row-wise max subtraction to improve efficiency
-| 13 | **flashAttention.cu**: optimized 1D convolution: accelerate convolution using shared memory tiling, memory coalescing, and padded tiles to avoid bank conflicts 
+| 13 | **1dConvulution.cu**: optimized 1D convolution: accelerate convolution using shared memory tiling, memory coalescing, and padded tiles to avoid bank conflicts 
+| 14 | **2dConvulution.cu**: 2D Convolution: shared memory tiling, warp-level shuffle operations, loop unrolling to accelerate convolution and improve cache efficiency.
 
 
 
