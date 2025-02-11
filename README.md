@@ -22,7 +22,7 @@ Mentor: https://github.com/hkproj/
 | 12 | **flashAttention.cu**:  flash attention: uses shared memory, tiling, block-wise computation, and stable softmax with row-wise max subtraction to improve efficiency
 | 13 | **1dConvulution.cu**: optimized 1D convolution: accelerate convolution using shared memory tiling, memory coalescing, and padded tiles to avoid bank conflicts 
 | 14 | **2dConvulution.cu**: 2D Convolution: shared memory tiling, warp-level shuffle operations, loop unrolling to accelerate convolution and improve cache efficiency.
-
+| 15 | **gradientDescent.cu**: gradient descent: uses shared memory, parallel reduction, and atomic operations for efficient gradient updates, minimizing memory overhead
 
 
 To test my kernels, run them at https://leetgpu.com
