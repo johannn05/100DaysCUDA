@@ -23,6 +23,6 @@ Mentor: https://github.com/hkproj/
 | 13 | **1dConvulution.cu**: optimized 1D convolution: accelerate convolution using shared memory tiling, memory coalescing, and padded tiles to avoid bank conflicts 
 | 14 | **2dConvulution.cu**: 2D Convolution: shared memory tiling, warp-level shuffle operations, loop unrolling to accelerate convolution and improve cache efficiency.
 | 15 | **gradientDescent.cu**: gradient descent: uses shared memory, parallel reduction, and atomic operations for efficient gradient updates, minimizing memory overhead
-
+| 16 | **priorityQueue.cu**: parallel priority queue: parallel heap operations, atomic updates, and efficient in-place sorting to extract the top-k elements from a large dataset. Uses min-heap
 
 To test my kernels, run them at https://leetgpu.com
