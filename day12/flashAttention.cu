@@ -158,7 +158,7 @@ int main() {
 
     delete[] Q;
     delete[] K;
-    delete[] V;
+    delete[] V; 
     delete[] O;
 
     return 0;
